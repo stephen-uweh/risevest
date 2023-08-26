@@ -1,0 +1,21 @@
+{
+    "type": "postgres",
+    "host": "data-cluster-do-user-11652658-0.b.db.ondigitalocean.com",
+    "port": 25060,
+    "username": "brand-district-dev",
+    "password": "AVNS_LxN4S_ySi8SIR0OgDPV",
+    "database": "brand-district-dev",
+    "synchronize": false,
+    "logging": true,
+    "ssl": {
+      "rejectUnauthorized": false
+    },
+    "entities": ["src/entities/*.ts"],
+    "migrations": ["src/migration/**/*.ts"],
+    "subscribers": ["src/subscriber/**/*.ts"],
+    "cli": {
+      "entitiesDir": "src/entities",
+      "migrationsDir": "src/migration",
+      "subscribersDir": "src/subscriber"
+    }
+  }

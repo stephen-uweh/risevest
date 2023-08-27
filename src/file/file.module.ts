@@ -9,6 +9,7 @@ import { UserEntity } from "src/entities/user.entity";
 import { FileUploadService } from "src/helpers/file-upload.service";
 import { FileService } from "./file.service";
 import { FileController } from "./file.controller";
+import { TranscodeFile } from "src/helpers/transcode";
 
 @Module({
     imports: [
@@ -21,7 +22,7 @@ import { FileController } from "./file.controller";
         PassportModule,
     ],
     controllers: [FileController],
-    providers: [FileUploadService, FileService]
+    providers: [FileUploadService, FileService, TranscodeFile]
 })
 
 export class FileModule {}

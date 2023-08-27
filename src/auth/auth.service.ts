@@ -6,8 +6,8 @@ import { SuccessResponse } from 'src/core/success';
 import { JwtService } from '@nestjs/jwt';
 import { UserEntity, UserRoleEnum } from 'src/entities/user.entity';
 import { UserService } from 'src/user/user.service';
-
-
+import { validateCreateUser } from 'src/validation/user.validation';
+import * as bcryptjs from 'bcryptjs';
 
 
 
@@ -37,34 +37,43 @@ export class AuthService {
        return ErrorResponse(401, 'User not authorized to view this page', null, null)
       // )
     }
-    const passwordValid = await this.userService.comparePassword(email, password)
+    const passwordValid = await this.userService.comparePassword(email, password);
+    console.log(user, passwordValid)
     if (user && passwordValid) {
       return user;
     }
     return null;
   }
 
-  // async addAdmin(data:any){
-  //   const { error } = validateCreateAdmin(data);
-  //   if (error) {
-  //     return ErrorResponse(403, error.details[0].message, null, null);
-  //   }
+  async addAdmin(data:any){
+    const { error } = validateCreateUser(data);
+    if (error) {
+      return ErrorResponse(403, error.details[0].message, null, null);
+    }
 
-  //   data['userRole'] = UserRoleEnum.ADMIN
+    data['userRole'] = UserRoleEnum.ADMIN
 
-  //   try{
-  //     let newAdmin = this.userRepository.create(data)
+    const salt = await bcryptjs.genSalt(10);
 
-  //     let createdAdmin = await this.userRepository.save(newAdmin)
+    const hash = await bcryptjs.hashSync(data.password, salt);
+    data.password = hash;
 
-  //     return SuccessResponse(
-  //       201,
-  //       "Admin addedd successfully",
-  //       createdAdmin,
-  //       null
-  //     )
-  //   } catch(error){
-  //     return ErrorResponse(500, "Error creating admin", error.message, null)
-  //   }
-  // }
+    try{
+
+      let createdAdmin = await this.userRepository.save(data)
+
+      const token = this.jwtService.sign(
+        JSON.parse(JSON.stringify(createdAdmin)),
+      );
+
+      return SuccessResponse(
+        201,
+        "Admin addedd successfully",
+        { token },
+        null
+      )
+    } catch(error){
+      return ErrorResponse(500, "Error creating admin", error.message, null)
+    }
+  }
 }

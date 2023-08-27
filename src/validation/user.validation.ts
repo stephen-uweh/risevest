@@ -9,3 +9,4 @@ export function validateCreateUser(user){
     })
     return schema.validate(user)
 }
+

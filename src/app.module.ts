@@ -9,6 +9,7 @@ import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
 import { FileModule } from './file/file.module';
 import { FolderModule } from './folder/folder.module';
+import { AdminModule } from './admin/admin.module';
 
 
 
@@ -24,7 +25,8 @@ import { FolderModule } from './folder/folder.module';
     AuthModule,
     UserModule,
     FileModule,
-    FolderModule
+    FolderModule,
+    AdminModule
   ],
   controllers: [AppController],
   providers: [AppService],

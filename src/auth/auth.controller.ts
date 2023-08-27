@@ -42,13 +42,13 @@ export class AuthController {
   @UseGuards(AdminAuthGuard)
   @Post('admin/login')
   async adminLogin(@Req() req: any, @Body() body) {
-    return SuccessResponse( 200, 'Admin logged in successfully', { token: this.jwtService.sign(req.user) }, null);
+    return SuccessResponse( 200, 'Admin logged in successfully', { token: this.jwtService.sign(JSON.parse(JSON.stringify(req.user))) }, null);
   }
 
 
-  // @Post('add/admin')
-  // async addAdmin(@Res() res, @Body() body){
-  //   let response = await this.authService.addAdmin(body)
-  //   return res.status(response.responseCode).send(response)
-  // }
+  @Post('add/admin')
+  async addAdmin(@Res() res, @Body() body){
+    let response = await this.authService.addAdmin(body)
+    return res.status(response.responseCode).send(response)
+  }
 }

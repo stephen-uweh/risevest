@@ -14,10 +14,10 @@ export class FolderEntity {
     @Column()
     userId:string;
 
-    @ManyToOne(() => UserEntity, (user) => user.id, {cascade: true})
+    @ManyToOne(() => UserEntity, (user) => user.id)
     user: UserEntity;
 
-    @OneToMany(() => FileEntity, (file) => file.folder)
+    @OneToMany(() => FileEntity, (file) => file.folder, {cascade: true})
     files: FileEntity[]
 
     @CreateDateColumn()

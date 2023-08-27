@@ -15,7 +15,7 @@ export class AdminJwtStrategy extends PassportStrategy(Strategy, 'admin') {
   }
 
   async validate(payload: any) {
-    if(payload.userType == UserRoleEnum.ADMIN){
+    if(payload.userRole == UserRoleEnum.ADMIN){
       return {user: payload}
     }
     return null

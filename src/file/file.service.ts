@@ -1,12 +1,12 @@
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-import { ErrorResponse } from "src/core/errors";
-import { SuccessResponse } from "src/core/success";
-import { FileEntity } from "src/entities/file.entity";
-import { FolderEntity } from "src/entities/folder.entity";
-import { UserEntity } from "src/entities/user.entity";
-import { FileUploadService } from "src/helpers/file-upload.service";
-import { TranscodeFile } from "src/helpers/transcode";
+import { ErrorResponse } from "../core/errors";
+import { SuccessResponse } from "../core/success";
+import { FileEntity } from "../entities/file.entity";
+import { FolderEntity } from "../entities/folder.entity";
+import { UserEntity } from "../entities/user.entity";
+import { FileUploadService } from "../helpers/file-upload.service";
+import { TranscodeFile } from "../helpers/transcode";
 import { Repository } from "typeorm";
 import uniqid from 'uniqid';
 
@@ -21,7 +21,7 @@ export class FileService {
         private transcodeFile: TranscodeFile
     ){}
 
-    async uploadFile(file:any, data:any, user:any){
+    async uploadFile(file:any, data:any, userId:any){
         try{
             let fileId = uniqid();
             // let fileUrl = await this.fileUploadService.uploadSingleItem(file);
@@ -43,7 +43,7 @@ export class FileService {
                 fileUrl: url,
                 fileSize: file.size,
                 fileId: fileId,
-                userId: user.id,
+                userId: userId,
                 fileType: data.fileType,
                 folderId: data.folderId ? data.folderId : null
             });

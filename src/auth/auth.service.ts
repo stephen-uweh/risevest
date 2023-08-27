@@ -1,12 +1,12 @@
 import { Injectable, UnauthorizedException } from '@nestjs/common';
-import { ErrorResponse } from 'src/core/errors';
+import { ErrorResponse } from '../core/errors';
 import { Repository } from 'typeorm';
 import { InjectRepository } from '@nestjs/typeorm';
-import { SuccessResponse } from 'src/core/success';
+import { SuccessResponse } from '../core/success';
 import { JwtService } from '@nestjs/jwt';
-import { UserEntity, UserRoleEnum } from 'src/entities/user.entity';
-import { UserService } from 'src/user/user.service';
-import { validateCreateUser } from 'src/validation/user.validation';
+import { UserEntity, UserRoleEnum } from '../entities/user.entity';
+import { UserService } from '../user/user.service';
+import { validateCreateUser } from '../validation/user.validation';
 import * as bcryptjs from 'bcryptjs';
 
 

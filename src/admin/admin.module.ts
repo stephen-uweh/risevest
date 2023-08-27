@@ -4,18 +4,18 @@ import { JwtModule, JwtService } from "@nestjs/jwt";
 import { PassportModule } from "@nestjs/passport";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { config } from "dotenv";
-import { FileEntity } from "src/entities/file.entity";
-import { FolderEntity } from "src/entities/folder.entity";
-import { UserEntity } from "src/entities/user.entity";
+import { FileEntity } from "../entities/file.entity";
+import { FolderEntity } from "../entities/folder.entity";
+import { UserEntity } from "../entities/user.entity";
 import { AdminController } from "./admin.controller";
 import { AdminService } from "./admin.service";
-import { LocalStrategy } from "src/auth/local.strategy";
-import { JwtStrategy } from "src/auth/jwt.strategy";
-import { AuthService } from "src/auth/auth.service";
-import { AdminJwtStrategy } from "src/auth/adminjwt.strategy";
-import { AdminLocalStrategy } from "src/auth/admin.strategy";
-import { UserService } from "src/user/user.service";
-import { jwtConstants } from "src/auth/constants";
+import { LocalStrategy } from "../auth/local.strategy";
+import { JwtStrategy } from "../auth/jwt.strategy";
+import { AuthService } from "../auth/auth.service";
+import { AdminJwtStrategy } from "../auth/adminjwt.strategy";
+import { AdminLocalStrategy } from "../auth/admin.strategy";
+import { UserService } from "../user/user.service";
+import { jwtConstants } from "../auth/constants";
 
 config(); 
 

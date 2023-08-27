@@ -1,11 +1,11 @@
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-import { ErrorResponse } from "src/core/errors";
-import { SuccessResponse } from "src/core/success";
-import { FileEntity } from "src/entities/file.entity";
-import { FolderEntity } from "src/entities/folder.entity";
-import { UserEntity } from "src/entities/user.entity";
-import { validateCreateFolder } from "src/validation/folder.validation";
+import { ErrorResponse } from "../core/errors";
+import { SuccessResponse } from "../core/success";
+import { FileEntity } from "../entities/file.entity";
+import { FolderEntity } from "../entities/folder.entity";
+import { UserEntity } from "../entities/user.entity";
+import { validateCreateFolder } from "../validation/folder.validation";
 import { Repository } from "typeorm";
 
 @Injectable()

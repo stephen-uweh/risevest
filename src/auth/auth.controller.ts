@@ -11,10 +11,10 @@ import {
 import { AdminAuthGuard, LocalAuthGuard } from '../guard/local-auth.guard';
 import { JwtService } from '@nestjs/jwt';
 import { AuthService } from './auth.service';
-import { SuccessResponse } from 'src/core/success';
-import { ErrorResponse } from 'src/core/errors';
+import { SuccessResponse } from '../core/success';
+import { ErrorResponse } from '../core/errors';
 import { AuthGuard } from '@nestjs/passport';
-import { UserService } from 'src/user/user.service';
+import { UserService } from '../user/user.service';
 
 
 

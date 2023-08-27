@@ -1,5 +1,5 @@
 import { Body, Controller, Get, Param, Patch, Post, Res, UseGuards } from "@nestjs/common";
-import { AdminJwtAuthGuard, JwtAuthGuard } from "src/guard/jwt-auth.guard";
+import { AdminJwtAuthGuard, JwtAuthGuard } from "../guard/jwt-auth.guard";
 import { AdminService } from "./admin.service";
 
 @Controller('admin')

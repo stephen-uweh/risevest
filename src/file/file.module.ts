@@ -3,13 +3,13 @@ import { ConfigModule } from "@nestjs/config";
 import { JwtModule } from "@nestjs/jwt";
 import { PassportModule } from "@nestjs/passport";
 import { TypeOrmModule } from "@nestjs/typeorm";
-import { FileEntity } from "src/entities/file.entity";
-import { FolderEntity } from "src/entities/folder.entity";
-import { UserEntity } from "src/entities/user.entity";
-import { FileUploadService } from "src/helpers/file-upload.service";
+import { FileEntity } from "../entities/file.entity";
+import { FolderEntity } from "../entities/folder.entity";
+import { UserEntity } from "../entities/user.entity";
+import { FileUploadService } from "../helpers/file-upload.service";
 import { FileService } from "./file.service";
 import { FileController } from "./file.controller";
-import { TranscodeFile } from "src/helpers/transcode";
+import { TranscodeFile } from "../helpers/transcode";
 
 @Module({
     imports: [

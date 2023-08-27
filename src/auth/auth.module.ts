@@ -10,9 +10,9 @@ import { JwtModule, JwtService } from '@nestjs/jwt';
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { ConfigModule } from "@nestjs/config";
 import { config } from 'dotenv';
-import { UserModule } from "src/user/user.module";
-import { UserEntity } from "src/entities/user.entity";
-import { UserService } from "src/user/user.service";
+import { UserModule } from "../user/user.module";
+import { UserEntity } from "../entities/user.entity";
+import { UserService } from "../user/user.service";
 import { AdminJwtStrategy } from "./adminjwt.strategy";
 import { AdminLocalStrategy } from "./admin.strategy";
 

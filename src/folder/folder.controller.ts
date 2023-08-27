@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Param, Post, Req, Res, UseGuards } from "@nestjs/common";
 import { FolderService } from "./folder.service";
-import { JwtAuthGuard } from "src/guard/jwt-auth.guard";
+import { JwtAuthGuard } from "../guard/jwt-auth.guard";
 
 @UseGuards(JwtAuthGuard)
 @Controller('folder')

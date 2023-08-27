@@ -1,11 +1,11 @@
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
-import { ErrorResponse } from "src/core/errors";
-import { UserEntity } from "src/entities/user.entity";
-import { validateCreateUser } from "src/validation/user.validation";
+import { ErrorResponse } from "../core/errors";
+import { UserEntity } from "../entities/user.entity";
+import { validateCreateUser } from "../validation/user.validation";
 import { Repository } from "typeorm";
 import * as bcryptjs from 'bcryptjs';
-import { SuccessResponse } from "src/core/success";
+import { SuccessResponse } from "../core/success";
 import { JwtService } from "@nestjs/jwt";
 
 

@@ -5,7 +5,7 @@ import * as fs from 'fs';
 import { FileUploadService } from './file-upload.service';
 import { Inject } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { FileEntity } from 'src/entities/file.entity';
+import { FileEntity } from '../entities/file.entity';
 import { Repository } from 'typeorm';
 const ffmpegInstaller = require('@ffmpeg-installer/ffmpeg');
 import { S3 } from 'aws-sdk';

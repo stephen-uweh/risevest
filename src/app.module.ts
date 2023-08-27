@@ -7,6 +7,8 @@ import { PassportModule } from '@nestjs/passport';
 import { DatabaseModule } from './database/database.module';
 import { AuthModule } from './auth/auth.module';
 import { UserModule } from './user/user.module';
+import { FileModule } from './file/file.module';
+import { FolderModule } from './folder/folder.module';
 
 
 
@@ -20,7 +22,9 @@ import { UserModule } from './user/user.module';
     PassportModule,
     DatabaseModule,
     AuthModule,
-    UserModule
+    UserModule,
+    FileModule,
+    FolderModule
   ],
   controllers: [AppController],
   providers: [AppService],

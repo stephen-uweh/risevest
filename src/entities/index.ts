@@ -1,4 +1,5 @@
 import { FileEntity } from "./file.entity";
+import { FolderEntity } from "./folder.entity";
 import { UserEntity } from "./user.entity";
 
 
@@ -17,5 +18,6 @@ export class ColumnNumericTransformer {
  */
 export const entities = [
   UserEntity,
-  FileEntity
+  FileEntity,
+  FolderEntity
 ];

@@ -6,6 +6,9 @@ import { TypeOrmModule } from "@nestjs/typeorm";
 import { UserEntity } from "src/entities/user.entity";
 import { config } from 'dotenv';
 import { UserService } from "./user.service";
+import { FileEntity } from "src/entities/file.entity";
+import { FolderEntity } from "src/entities/folder.entity";
+import { UserController } from "./user.controller";
 
 
 config();
@@ -13,14 +16,14 @@ config();
 @Module({
     imports: [
         ConfigModule.forRoot(),
-        TypeOrmModule.forFeature([UserEntity]),
+        TypeOrmModule.forFeature([UserEntity, FileEntity, FolderEntity]),
         JwtModule.register({
         secret: process.env.JWT_SECRET,
         signOptions: { expiresIn: '600000000000000000s' },
         }),
         PassportModule,
     ],
-    controllers: [],
+    controllers: [UserController],
     providers: [UserService]
 })
 

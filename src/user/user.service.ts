@@ -20,7 +20,7 @@ export class UserService {
     async createUser(data:any){
         const { error } = validateCreateUser(data);
         if (error) {
-        return ErrorResponse(403, error.details[0].message, null, null);
+            return ErrorResponse(403, error.details[0].message, null, null);
         }
 
         let userExists = await this.userRepository.findOneBy({email: data['email']})
@@ -33,13 +33,23 @@ export class UserService {
         const hash = await bcryptjs.hashSync(data.password, salt);
         data.password = hash;
 
-        let newUser = await this.userRepository.save(data);
+        let newUser
 
-        const token = this.jwtService.sign(
-            JSON.parse(JSON.stringify(newUser)),
-        );
+        try{
+            newUser = await this.userRepository.save(data);
 
-        return SuccessResponse(201, "User created succesfully", {...newUser, token:token}, null)
+            const token = this.jwtService.sign(
+                JSON.parse(JSON.stringify(newUser)),
+            );
+
+            return SuccessResponse(201, "User created succesfully", {...newUser, token:token}, null);
+        } catch(error){
+            console.log(error)
+            if(newUser && newUser.id){
+                await this.userRepository.delete(newUser.id)
+            }
+            return ErrorResponse(500, "Error registering user. Please try again", null, null)
+        }
     }
 
     async comparePassword(email:string, password:string) {

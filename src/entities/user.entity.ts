@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, Timestamp, UpdateDateColumn } from "typeorm";
+import { FileEntity } from "./file.entity";
 
 export enum UserRoleEnum {
     USER = "user",
@@ -20,8 +21,17 @@ export class UserEntity {
     email: string;
 
     @Column({nullable: false})
-    password: string
+    password: string;
 
     @Column({type: "enum", enum: UserRoleEnum, default: UserRoleEnum.USER})
-    userRole: UserRoleEnum
+    userRole: UserRoleEnum;
+
+    @OneToMany(() => FileEntity, (file) => file.user)
+    files: FileEntity[]
+
+    @CreateDateColumn()
+    created_at: Timestamp;
+
+    @UpdateDateColumn()
+    updated_at: Timestamp;
 }

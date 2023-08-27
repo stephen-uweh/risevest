@@ -4,20 +4,24 @@ import { JwtModule } from "@nestjs/jwt";
 import { PassportModule } from "@nestjs/passport";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { FileEntity } from "src/entities/file.entity";
+import { FolderEntity } from "src/entities/folder.entity";
 import { UserEntity } from "src/entities/user.entity";
+import { FileUploadService } from "src/helpers/file-upload.service";
+import { FileService } from "./file.service";
+import { FileController } from "./file.controller";
 
 @Module({
     imports: [
         ConfigModule.forRoot(),
-        TypeOrmModule.forFeature([UserEntity, FileEntity]),
+        TypeOrmModule.forFeature([UserEntity, FileEntity, FolderEntity]),
         JwtModule.register({
         secret: process.env.JWT_SECRET,
         signOptions: { expiresIn: '600000000000000000s' },
         }),
         PassportModule,
     ],
-    controllers: [],
-    providers: []
+    controllers: [FileController],
+    providers: [FileUploadService, FileService]
 })
 
 export class FileModule {}

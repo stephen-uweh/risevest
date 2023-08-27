@@ -29,6 +29,9 @@ export class FileEntity {
     hls: string;
 
     @Column({nullable: true})
+    duration: string
+
+    @Column({nullable: true})
     folderId: string;
 
     @ManyToOne(() => FolderEntity, (folder) => folder.id, {nullable: true})

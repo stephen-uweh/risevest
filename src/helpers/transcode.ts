@@ -36,18 +36,23 @@ export class TranscodeFile {
             ])
             .output(`output/${payload.fileId}/output.m3u8`)
             .on('end', async () => {
-              console.log('Transcoding started');
+                console.log('Transcoding started');
 
-              let filePath = `output/${payload.fileId}/output.m3u8`
+                let filePath = `output/${payload.fileId}/output.m3u8`;
 
-              let transcodeUpload = await this.uploadTranscodedFile(payload.fileId, filePath);
-              if(transcodeUpload){
-                let file = await this.fileRepository.findOneBy({fileId:payload.fileId});
-                if(file){
-                    file.hls = transcodeUpload;
-                    await this.fileRepository.save(file);
+                let transcodeUpload = await this.uploadTranscodedFile(payload.fileId, filePath);
+
+                if(transcodeUpload){
+                    let file = await this.fileRepository.findOneBy({fileId:payload.fileId});
+                    if(file){
+                        file.hls = transcodeUpload;
+                        await this.fileRepository.save(file);
+                    }
                 }
-              }
+
+                const dir = Path.join(`output`, payload.fileId);
+
+                await this.deleteFiles(dir);
               return 200;
             })
             .run();
@@ -56,24 +61,11 @@ export class TranscodeFile {
           return 500;
         }
     }
-
-    async probe(path: string) {
-        return await new Promise((resolve) => {
-          ffmpeg.ffprobe(path, function (err: any, data: any) {
-            const metaData = data?.streams;
-            if (metaData) {
-              const streams = metaData[0];
-              const duration = streams?.duration;
-              resolve(duration);
-            }
-          });
-        });
-    }
     
     async deleteFiles(dir: string) {
     fs.rm(dir, { recursive: true }, function (err) {
         if (err) {
-        return console.log(err);
+            return console.log(err);
         }
         console.log("File deleted")
     });

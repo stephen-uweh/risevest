@@ -25,8 +25,12 @@ export class FileService {
         try{
             let fileId = uniqid();
             // let fileUrl = await this.fileUploadService.uploadSingleItem(file);
+            let mimetype = file.mimetype
+            let split = mimetype.split('/')
+            let extension = split[split.length-1]
+            let fileKey =   `${fileId}.${extension}`
 
-            let url = await this.fileUploadService.uploadToAWS(file.buffer, fileId)
+            let url = await this.fileUploadService.uploadToAWS(file.buffer, fileKey)
 
             if(data.folderId){
                 let folder = await this.folderRepository.findOneBy({id:data.folderId});
@@ -44,7 +48,6 @@ export class FileService {
                 folderId: data.folderId ? data.folderId : null
             });
             if(data.fileType != "image"){   
-                console.log("Transcode started")
                 await this.transcodeFile.transcode({fileUrl: url, fileId:fileId})
             }
             return SuccessResponse(201, "File uploaded successfully", newFile, null);

@@ -21,7 +21,7 @@ export class TranscodeFile {
         try {
           const generateRandomId = uuidv4().slice(0, 10);
           ffmpeg.setFfmpegPath(ffmpegInstaller.path);
-        //   fs.mkdirSync(`output/${payload.fileId}`);
+          fs.mkdirSync(`output/${payload.fileId}`);
           const path = payload.fileUrl;
     
           ffmpeg(path, { timeout: 432000 })

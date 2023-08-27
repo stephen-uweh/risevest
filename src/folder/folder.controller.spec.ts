@@ -14,19 +14,20 @@ import { JwtStrategy } from '../auth/jwt.strategy';
 import { AdminJwtStrategy } from '../auth/adminjwt.strategy';
 import { AdminLocalStrategy } from '../auth/admin.strategy';
 import { entities } from '../entities';
-import { FileController } from './file.controller';
-import { FileService } from './file.service';
 import { FileUploadService } from '../helpers/file-upload.service';
 import { TranscodeFile } from '../helpers/transcode';
 import { UserService } from '../user/user.service';
 import { GetSingleFileDto, UploadFileDto } from '../dto/file.dto';
+import { FolderController } from './folder.controller';
+import { FolderService } from './folder.service';
+import { CreateFolderDto, GetSingleFolderDto } from '../dto/folder.dto';
 
 
 config();
 
 describe('UserController', () => {
-    let fileController: FileController;
-    let fileService: FileService
+    let folderController: FolderController;
+    let folderService: FolderService
 
     beforeEach(async () => {
         const app: TestingModule = await Test.createTestingModule({
@@ -56,14 +57,14 @@ describe('UserController', () => {
                 }),
                 PassportModule,
             ],
-            controllers: [FileController],
-            providers: [FileService, JwtService, AuthService, 
+            controllers: [FolderController],
+            providers: [FolderService, JwtService, AuthService, 
                 LocalStrategy, JwtStrategy, AdminJwtStrategy, 
                 AdminLocalStrategy, FileUploadService, TranscodeFile, UserService],
         }).compile();
     
-        fileController = app.get<FileController>(FileController);
-        fileService = app.get<FileService>(FileService);
+        folderController = app.get<FolderController>(FolderController);
+        folderService = app.get<FolderService>(FolderService);
 
         jest.setTimeout(60000);
 
@@ -71,34 +72,34 @@ describe('UserController', () => {
 
 
     it('should be defined', () => {
-        expect(fileController).toBeDefined();
+        expect(folderController).toBeDefined();
     });
 
 
-    describe("Upload a file", () => {
-        it("should return an uploaded file", async () => {
-            let fileDto = new UploadFileDto, userDto = new GetSingleUserDto
+    describe("Create a folder", () => {
+        it("should return a created folder", async () => {
+            let folderDto = new CreateFolderDto
             const result = {responseCode: 200, status:true, message: '', data: {}, meta: {}}
-            jest.spyOn(fileService, 'uploadFile').mockImplementation(async () => result)
-            expect(await fileService.uploadFile(fileDto.file, fileDto, userDto.userId)).toBe(result)
+            jest.spyOn(folderService, 'createFolder').mockImplementation(async () => result)
+            expect(await folderService.createFolder(folderDto, folderDto.userId)).toBe(result)
         }) 
     });
 
-    describe("Get All User Files", () => {
-        it("should return all user files", async () => {
+    describe("Get All User Folders", () => {
+        it("should return all user folders", async () => {
             let userDto = new GetSingleUserDto;
             const result = {responseCode: 200, status:true, message: '', data: {}, meta: {}}
-            jest.spyOn(fileService, 'getAllUserFiles').mockImplementation(async () => result)
-            expect(await fileService.getAllUserFiles(userDto.userId)).toBe(result)
+            jest.spyOn(folderService, 'getUserFolders').mockImplementation(async () => result)
+            expect(await folderService.getUserFolders(userDto.userId)).toBe(result)
           }) 
     });
 
     describe("Get A Single File", () => {
         it("should return a single file", async () => {
-            let userDto = new GetSingleFileDto;
+            let folderDto = new GetSingleFolderDto;
             const result = {responseCode: 200, status:true, message: '', data: {}, meta: {}}
-            jest.spyOn(fileService, 'getSingleFile').mockImplementation(async () => result)
-            expect(await fileService.getSingleFile(userDto.fileId)).toBe(result)
+            jest.spyOn(folderService, 'getSingleFolder').mockImplementation(async () => result)
+            expect(await folderService.getSingleFolder(folderDto.folderId)).toBe(result)
           }) 
     });
 

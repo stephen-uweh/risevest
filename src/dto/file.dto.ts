@@ -14,7 +14,7 @@ export class UploadFileDto {
 
 export class GetSingleFileDto {
     @IsString()
-    folderId:string
+    fileId:string
 }
 
 export class GetUserFilesDto {

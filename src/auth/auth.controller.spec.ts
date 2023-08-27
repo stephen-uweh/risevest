@@ -14,9 +14,12 @@ import { jwtConstants } from './constants';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { UserModule } from '../user/user.module';
 import { entities } from '../entities';
+import { CreateUserDto } from '../dto/user.dto';
+
 
 describe('AuthController', () => {
   let controller: AuthController;
+  let authService: AuthService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -54,9 +57,20 @@ describe('AuthController', () => {
     }).compile();
 
     controller = module.get<AuthController>(AuthController);
+    authService = module.get<AuthService>(AuthService)
   });
 
   it('should be defined', () => {
     expect(controller).toBeDefined();
   });
+
+  describe("Create an admin", () => {
+    it("should return a created admin", async () => {
+        let userDto = new CreateUserDto
+        const result = {responseCode: 200, status:true, message: '', data: {}, meta: {}}
+        jest.spyOn(authService, 'addAdmin').mockImplementation(async () => result)
+        expect(await authService.addAdmin(userDto)).toBe(result)
+    }) 
+  });
+
 });

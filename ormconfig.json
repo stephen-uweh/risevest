@@ -1,10 +1,10 @@
 {
     "type": "postgres",
-    "host": "data-cluster-do-user-11652658-0.b.db.ondigitalocean.com",
+    "host": "",
     "port": 25060,
-    "username": "brand-district-dev",
-    "password": "AVNS_LxN4S_ySi8SIR0OgDPV",
-    "database": "brand-district-dev",
+    "username": "",
+    "password": "",
+    "database": "",
     "synchronize": false,
     "logging": true,
     "ssl": {
